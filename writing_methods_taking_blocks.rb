@@ -214,3 +214,30 @@ end
 # File::open opens the file, yields to the block, then closes the file
 
 # NOTE: METHODS WITH AN EXPLICIT BLOCK PARAMETER
+
+def test(&block)
+  puts "What's &block? #{block}"
+end
+
+# The &block is a special parameter that will convert the implicitly passed in block into a Proc object.
+# Notice that we drop the & when using the parameter in the method implementation
+
+# invoke our method
+test { sleep(1) }
+# What's &block? #<Proc:0x007f98e32b83c8@(irb):59>
+# => nil
+
+# Before, we didn't have a handle on the implicit block, so we couldn't do much
+# with it except yield to it. Now that we have a variable that represents the block,
+# we can pass the block to another method.
+
+
+# NOTE: SUMMARY
+
+# - blocks are one way that Ruby implements closures. Closures are a way to pass
+#   around an unnamed "chunk of code" to be executed later.
+# - blocks can take arguments, just like normal methods. But unlike normal methods,
+#   it won't complain about wrong number of arguments passed to it.
+# - blocks return a value, just like normal methods.
+# - blocks are a good use case for "sandwich code" scenarios, like closing a
+#   File automatically.
