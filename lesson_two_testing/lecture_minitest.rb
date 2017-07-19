@@ -118,3 +118,57 @@ Finished in 0.00537s
 2 tests, 1 assertions, 0 failures, 0 errors, 1 skips
 
 # You could also pass a string into skip if you want a more custom display message.
+
+require 'minitest/autorun'
+require "minitest/reporters"
+Minitest::Reporters.use!
+
+require_relative 'car'
+
+class CarTest < MiniTest::Test
+  def test_wheels
+    car = Car.new
+    assert_equal(4, car.wheels)
+  end
+
+  def test_bad_wheels
+    skip
+    car = Car.new
+    assert_equal(3, car.wheels)
+  end
+end
+
+# EXPECTATION SYNTAX
+
+# so far weve seen the assertion or assert-style syntax.
+# There is also expectation or "spec-style"
+
+# in this format, tests are grouped into describe blocks.
+# individual tests are written with the it method.
+
+require 'minitest/autorun'
+
+require_relative 'car'
+
+describe 'Car#wheels' do
+  it 'has 4 wheels' do
+    car = Car.new
+    car.wheels.must_equal 4           # this is the expectation
+  end
+end
+
+# Summary
+
+# Getting started with Minitest is very simple.
+
+# - Minitest is an intuitive test library that comes with Ruby.
+# - Using Minitest is very easy, and you shouldn't be afraid to play around with it.
+# - Create a test file by subclassing MiniTest::Test.
+# - Create a test by creating an instance method that starts with test_.
+# - Create assertions with assert_equal, and pass it the expected value and the actual value.
+# - Colorize Minitest output with minitest-reporters
+# - You can skip tests with skip.
+# - Minitest comes in two syntax flavors: assertion style and expectation style.
+#   The latter is to appease RSpec users, but the former is far more intuitive for beginning Ruby developers.
+
+# There's a lot more depth to learning testing, but this is enough to get started.
